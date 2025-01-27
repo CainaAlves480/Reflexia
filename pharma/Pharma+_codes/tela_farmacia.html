@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="tela_farmacia.css">
+    <title>Farmácia</title>
+    <style>
+        /* Adicione o estilo para o modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            width: 300px; /* Defina a largura desejada */
+            text-align: center;
+        }
+
+        /* Estilo para o fundo escuro ao redor do modal */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Estilo para o botão de fechar o modal */
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #555;
+        }
+
+        /* Estilo para os campos do modal */
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-icon" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="menu-sidebar" id="menuSidebar">
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="#">Motoboy</a>
+                    <div class="dropdown-content">
+                        <a href="cadastro_motoboy.html">Cadastro</a><br>
+                        <a href="Bate-papo.html">Bate-Papo</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Produtos</a>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="adicionarRemedio()">Adicionar Remédio</a>
+                    </div>
+                </li>
+                <li><a href="faq.html">Sobre Nós</a></li>
+                <li><a href="suporte.html">Suporte</a></li>
+            </ul>
+        </nav>
+    </div>
+    <header>
+        <h1>Farmácia</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li class="dropdown">
+                <a href="#">Motoboy</a>
+                <div class="dropdown-content">
+                    <a href="cadastro_motoboy.html">Cadastro</a><br>
+                    <a href="Bate-papo.html">Bate-Papo</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Produtos</a>
+                <div class="dropdown-content">
+                    <a href="#" onclick="adicionarRemedio()">Adicionar Remédio</a>
+                </div>
+            </li>
+            <li><a href="faq.html">Sobre Nós</a></li>
+            <li><a href="suporte.html">Suporte</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="product" id="produto1">
+            <img src="imagens/paracetamol.jpg" alt="Medicamento 1">
+            <h2>Paracetamol</h2>
+            <p>Descrição do medicamento 1 e informações adicionais.</p>
+            <span class="price" id="paracetamolPrice">R$ 20.00</span>
+            <button class="buy-button" onclick="editarProduto('produto1')">Editar</button>
+        </section>
+
+        <section class="product" id="produto2">
+            <img src="imagens/dipirona.webp" alt="Medicamento 2">
+            <h2>Dipirona</h2>
+            <p>Descrição do medicamento 2 e informações adicionais.</p>
+            <span class="price" id="dipironaPrice">R$ 15.00</span>
+            <button class="buy-button" onclick="editarProduto('produto2')">Editar</button>
+        </section>
+    </main>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="modal">
+        <span class="close-button" onclick="fecharModal()">&times;</span>
+        <h2>Editar Produto</h2>
+        <label for="editNome">Nome:</label>
+        <input type="text" id="editNome">
+        <label for="editDescricao">Descrição:</label>
+        <textarea id="editDescricao"></textarea>
+        <label for="editPreco">Preço:</label>
+        <input type="text" id="editPreco">
+        <label for="editImagem">Imagem:</label>
+        <input type="file" id="editImagem" accept="image/*">
+        <button onclick="confirmarEdicao()">Confirmar</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Farmácia. Todos os direitos reservados Reflexia.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuIcon = document.querySelector('.menu-icon');
+            const nav = document.querySelector('nav ul');
+            const menuSidebar = document.getElementById('menuSidebar');
+
+            menuIcon.addEventListener('click', function () {
+                nav.classList.toggle('menu-open');
+                menuIcon.classList.toggle('open');
+                menuSidebar.classList.toggle('open')
+            });
+        });
+
+        function adicionarRemedio() {
+            const nome = prompt("Digite o nome do novo remédio:");
+            const descricao = prompt("Digite a descrição do novo remédio:");
+            const preco = prompt("Digite o preço do novo remédio:");
+
+            if (nome !== null && descricao !== null && preco !== null) {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = function (event) {
+                    const imagem = URL.createObjectURL(event.target.files[0]);
+                    adicionarRemedioComImagem(nome, descricao, preco, imagem);
+                };
+                input.click();
+            }
+        }
+
+        function adicionarRemedioComImagem(nome, descricao, preco, imagem) {
+            const mainSection = document.querySelector('main');
+            const novoRemedio = document.createElement('section');
+            novoRemedio.className = 'product';
+
+            novoRemedio.innerHTML = `
+                <img src="${imagem}" alt="${nome}">
+                <h2>${nome}</h2>
+                <p>${descricao}</p>
+                <span class="price">R$ ${preco}</span>
+                <button class="buy-button" onclick="editarProduto('${novoRemedio.id}')">Editar</button>
+            `;
+
+            mainSection.appendChild(novoRemedio);
+        }
+
+        function editarProduto(id) {
+            const produto = document.getElementById(id);
+            const nome = prompt("Digite o novo nome do remédio:", produto.querySelector('h2').innerText);
+            const descricao = prompt("Digite a nova descrição do remédio:", produto.querySelector('p').innerText);
+            const preco = prompt("Digite o novo preço do remédio:", produto.querySelector('.price').innerText);
+
+            if (nome !== null && descricao !== null && preco !== null) {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = function (event) {
+                    const imagem = URL.createObjectURL(event.target.files[0]);
+                    editarProdutoComImagem(id, nome, descricao, preco, imagem);
+                };
+                input.click();
+            }
+        }
+
+        function editarProdutoComImagem(id, nome, descricao, preco, imagem) {
+            const produto = document.getElementById(id);
+            produto.innerHTML = `
+                <img src="${imagem}" alt="${nome}">
+                <h2>${nome}</h2>
+                <p>${descricao}</p>
+                <span class="price">R$ ${preco}</span>
+                <button class="buy-button" onclick="editarProduto('${id}')">Editar</button>
+            `;
+        }
+
+        // Função para abrir o modal
+        function abrirModal() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        // Função para fechar o modal
+        function fecharModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Função para editar o produto
+        function editarProduto(id) {
+            const produto = document.getElementById(id);
+            const nome = produto.querySelector('h2').innerText;
+            const descricao = produto.querySelector('p').innerText;
+            const preco = produto.querySelector('.price').innerText;
+
+            // Preencher os campos do modal com os valores atuais
+            document.getElementById('editNome').value = nome;
+            document.getElementById('editDescricao').value = descricao;
+            document.getElementById('editPreco').value = preco;
+
+            // Armazenar o produto alvo no modal para referência posterior
+            document.querySelector('.modal').targetProduto = produto;
+
+            abrirModal(); // Abrir o modal
+        }
+
+        // Função para confirmar a edição
+        function confirmarEdicao() {
+            // Obter os novos valores do modal
+            const nome = document.getElementById('editNome').value;
+            const descricao = document.getElementById('editDescricao').value;
+            const preco = document.getElementById('editPreco').value;
+            const imagemInput = document.getElementById('editImagem');
+
+            // Se o input de imagem não estiver vazio, obter a URL da imagem
+            const imagem = imagemInput.files.length > 0 ? URL.createObjectURL(imagemInput.files[0]) : '';
+
+            // Atualizar o produto com os novos valores
+            const produto = document.querySelector('.modal').targetProduto;
+            produto.innerHTML = `
+                <img src="${imagem}" alt="${nome}">
+                <h2>${nome}</h2>
+                <p>${descricao}</p>
+                <span class="price">R$ ${preco}</span>
+                <button class="buy-button" onclick="editarProduto('${produto.id}')">Editar</button>
+            `;
+
+            fecharModal(); // Fechar o modal
+        }
+    </script>
+</body>
+
+</html>

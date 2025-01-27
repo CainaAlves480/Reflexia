@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .payment-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        span {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="payment-container">
+        <h2>Tela de Pagamento</h2>
+        <label for="paymentMethod">Escolha o Método de Pagamento:</label>
+        <select id="paymentMethod" onchange="togglePaymentFields()">
+            <option value="card">Cartão de Crédito</option>
+            <option value="pix">PIX</option>
+        </select>
+
+        <div id="pixFields" style="display: none;">
+            <label for="pixKey">Chave PIX:</label>
+            <span id="pixKey" onclick="copiarChavePix()">chave.pix@exemplo.com.br</span>
+        </div>
+
+        <form id="paymentForm" style="display: none;">
+            <label for="cardNumber">Número do Cartão:</label>
+            <input type="text" id="cardNumber" placeholder="**** **** **** ****" maxlength="19" pattern="\d{4} \d{4} \d{4} \d{4}" required>
+
+            <label for="cardName">Nome no Cartão:</label>
+            <input type="text" id="cardName" required>
+
+            <div style="display: flex; justify-content: space-between;">
+                <div style="flex: 1; margin-right: 10px;">
+                    <label for="expirationDate">Data de Expiração:</label>
+                    <input type="text" id="expirationDate" placeholder="MM/AA" maxlength="5" pattern="(0[1-9]|1[0-2])\/\d{2}" required>
+                </div>
+                <div style="flex: 1;">
+                    <label for="cvc">CVC:</label>
+                    <input type="text" id="cvc" placeholder="***" maxlength="3" pattern="\d{3}" required>
+                </div>
+            </div>
+
+            <button type="button" onclick="processarPagamento()">Pagar</button>
+        </form>
+    </div>
+
+    <script>
+        function togglePaymentFields() {
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const pixFields = document.getElementById('pixFields');
+            const paymentForm = document.getElementById('paymentForm');
+
+            if (paymentMethod === 'pix') {
+                pixFields.style.display = 'block';
+                paymentForm.style.display = 'none';
+            } else {
+                pixFields.style.display = 'none';
+                paymentForm.style.display = 'block';
+            }
+        }
+
+        function copiarChavePix() {
+            const chavePix = document.getElementById('pixKey').innerText;
+
+            // Criar um elemento de área de transferência temporário
+            const tempInput = document.createElement('input');
+            tempInput.value = chavePix;
+            document.body.appendChild(tempInput);
+
+            // Selecionar e copiar o conteúdo da área de transferência
+            tempInput.select();
+            document.execCommand('copy');
+
+            // Remover o elemento temporário
+            document.body.removeChild(tempInput);
+
+            alert('Chave PIX copiada para a área de transferência');
+        }
+
+        function processarPagamento() {
+            // Lógica para processar pagamento com cartão
+            const cardNumber = document.getElementById('cardNumber').value;
+            const cardName = document.getElementById('cardName').value;
+            const expirationDate = document.getElementById('expirationDate').value;
+            const cvc = document.getElementById('cvc').value;
+
+            alert(`Pagamento processado via Cartão:\nNúmero do Cartão: ${cardNumber}\nNome no Cartão: ${cardName}\nData de Expiração: ${expirationDate}\nCVC: ${cvc}`);
+        }
+    </script>
+</body>
+
+</html>

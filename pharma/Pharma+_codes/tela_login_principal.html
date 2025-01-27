@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="Logins/tela_login_principal.css">
+    <title>Pharma Plus</title>
+</head>
+<body>
+    <h1>Pharma +</h1>
+    <h2>Login Usuario</h2>
+    <center><div class="login-container">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="username">E-mail:</label>
+                <input type="text" id="username" name="username" placeholder="Digite Seu Email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" placeholder="Digite Sua Senha" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Entrar</button><br>
+            </div>
+
+            <a id="signInButton"> <img src="favicons/pngimg.com - google_PNG19635.png" width="40px"></a>
+                <button id="signOutButton">Desconectar</button>
+    
+                <div id="message">
+                    <p>Voçê entrou como <span id="userName"></span> com o email <span id="userEmail"></span> </p>
+                </div>
+
+            <p class="terms">Ao entrar você concorda com os <a href="">Termos De Serviços</a> da REFLEXIA.</p><br>
+            <p class="terms">Não possui uma conta? clque em <a href="cadastro_usuario.html">Criar conta</a> para criar uma conta</p>
+        </form>
+    </div>
+    <div class="Logins-alternativos">
+        <p class="poutros">Outros Logins</p>
+        <div class="farmacia">
+        <a href="farmacia.html" class="loutros">Farmácia</a>
+        </div>
+        <div class="motoboy">
+        <a href="motoboy.html" class="loutros">MotoBoy</a>
+        </div>
+    </div>
+    <h6 class="reflx">REFLEXIA Inc.</h6>
+
+<script type="module">
+  
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+ 
+
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+  
+  // Add your own Firebase config here
+ 
+  const firebaseConfig = {
+  apiKey: "AIzaSyC0dsCwI9Tgn55ejnCYGH1Sp365Z9w4qGM",
+  authDomain: "loginpharma-881d8.firebaseapp.com",
+  projectId: "loginpharma-881d8",
+  storageBucket: "loginpharma-881d8.appspot.com",
+  messagingSenderId: "824832942469",
+  appId: "1:824832942469:web:70c62df1e8715170a9e4ec"
+};
+
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider()
+
+  const signInButton = document.getElementById("signInButton");
+  const signOutButton = document.getElementById("signOutButton");
+  const message = document.getElementById("message");
+  const userName = document.getElementById("userName");
+  const userEmail = document.getElementById("userEmail");
+
+  signOutButton.style.display = "none";
+  message.style.display = "none";
+
+  const userSignIn = async() => {
+    signInWithPopup(auth, provider)
+    .then((result) => {
+        const user = result.user
+        console.log(user);
+    }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message
+    })
+  }
+
+  const userSignOut = async() => {
+    signOut(auth).then(() => {
+        alert("You have signed out successfully!");
+    }).catch((error) => {})
+  }
+
+  onAuthStateChanged(auth, (user) => {
+    if(user) {
+      signOutButton.style.display = "block";
+      message.style.display = "block";
+      userName.innerHTML = user.displayName;
+      userEmail.innerHTML = user.email
+    } else {
+      signOutButton.style.display = "none";
+      message.style.display = "none";
+    }
+  })
+
+  signInButton.addEventListener('click', userSignIn);
+  signOutButton.addEventListener('click', userSignOut);
+
+
+
+</script>
+</body>
+</html>

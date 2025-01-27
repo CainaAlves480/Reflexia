@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bate-papo.css">
+    <title>Bate Papo</title>
+    <style>
+        /* Adicione seu CSS personalizado aqui se necessário */
+    </style>
+</head>
+
+<body>
+    <div class="menu-icon" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="menu-sidebar" id="menuSidebar">
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="#">Motoboy</a>
+                    <div class="dropdown-content">
+                        <a href="cadastro_motoboy.html">Cadastro</a><br>
+                        <a href="Bate-papo.html">Bate-Papo</a>
+                    </div>
+                </li>
+                <li><a href="tela_farmacia.html">Produtos</a></li>
+                <li><a href="faq.html">Sobre Nós</a></li>
+                <li><a href="suporte.html">Suporte</a></li>
+            </ul>
+        </nav>
+    </div>
+    <header>
+        <h1>Bate Papo</h1>
+    </header>
+
+    <main>
+        <section class="chat">
+            <div class="message received">
+                <p>Motoboy: Olá, onde será</p>
+            </div>
+            <div class="message sent">
+                <p>Farmacêutico: Olá! Estarei enviando para você a próxima localização</p>
+            </div>
+            <!-- Adicione mais mensagens aqui -->
+        </section>
+
+        <section class="message-input">
+            <input type="text" id="userMessage" placeholder="Digite sua mensagem">
+            <button onclick="enviarMensagem()">Enviar</button>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuIcon = document.querySelector('.menu-icon');
+            const nav = document.querySelector('nav ul');
+            const menuSidebar = document.getElementById('menuSidebar');
+
+            menuIcon.addEventListener('click', function () {
+                nav.classList.toggle('menu-open');
+                menuIcon.classList.toggle('open');
+                menuSidebar.classList.toggle('open');
+            });
+        });
+
+        function enviarMensagem() {
+            const inputMensagem = document.getElementById('userMessage');
+            const mensagem = inputMensagem.value;
+
+            if (mensagem.trim() !== '') {
+                const chatSection = document.querySelector('.chat');
+                const novaMensagem = document.createElement('div');
+                novaMensagem.className = 'message sent';
+                novaMensagem.innerHTML = `<p>Farmacêutico: ${mensagem}</p>`;
+                chatSection.appendChild(novaMensagem);
+
+                // Limpar o campo de entrada após enviar a mensagem
+                inputMensagem.value = '';
+            }
+        }
+    </script>
+</body>
+
+</html>

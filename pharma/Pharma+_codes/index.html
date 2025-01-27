@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmácia Online</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #2e8b57;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 2rem;
+    }
+
+    nav {
+      margin-top: 1rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .main {
+      padding: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .card {
+      background-color: white;
+      width: 250px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      padding: 1rem 0;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      padding: 0 1rem 1rem;
+      color: #555;
+    }
+
+    footer {
+      background-color: #2e8b57;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Farmácia Online</h1>
+    <nav>
+      <a href="#">Início</a>
+      <a href="#">Produtos</a>
+      <a href="#">Ofertas</a>
+      <a href="#">Contato</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="card">
+      <img src="https://via.placeholder.com/250x150" alt="Medicamentos">
+      <h3>Medicamentos</h3>
+      <p>Encontre medicamentos para diversas necessidades.</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/250x150" alt="Vitaminas">
+      <h3>Vitaminas</h3>
+      <p>As melhores vitaminas para sua saúde.</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/250x150" alt="Cosméticos">
+      <h3>Cosméticos</h3>
+      <p>Produtos de beleza e cuidados pessoais.</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/250x150" alt="Cuidados Infantis">
+      <h3>Cuidados Infantis</h3>
+      <p>Produtos especiais para os pequenos.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Farmácia Online. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>

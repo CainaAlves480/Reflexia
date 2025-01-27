@@ -1,0 +1,47 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+.topo{
+    background-color: rgb(97, 97, 224);
+    padding-bottom: 3%;
+    padding: 20px; 
+    box-shadow: 2px 2px 2Px rgb(189, 187, 187);
+}
+
+.meio{
+    box-shadow: ;
+    margin-top: 5%;
+    background-color: rgb(216, 218, 221);
+}
+.farmacia1{
+    margin-top: 10%;
+    width: 1000px;
+    height: 220px;
+    background-color: rgb(71, 48, 42);
+    border-radius: 10px 10px 10px;
+    margin-left: 10%;
+}
+.farmacia2{
+    margin-top: 2%;
+    width: 1000px;
+    height: 220px;
+    background-color: rgb(216, 119, 95);
+    border-radius: 10px 10px 10px;
+    margin-left: 10%;
+    margin-bottom: 5% ;
+}
+.farmacia3{
+    margin-top: 2%;
+    width: 1000px;
+    height: 220px;
+    background-color: rgb(216, 119, 95);
+    border-radius: 10px 10px 10px;
+    margin-bottom: 2%;
+    margin-left: 10%;
+    margin-bottom: 5% ;
+}
+.rodape{
+    background-color: rgb(52, 81, 212);
+    padding: 10%;
+}
